@@ -20,14 +20,14 @@ variable "description" {
 }
 
 variable "destinations" {
-  description = "List of destinations. Allowed values `port`: 0-65535. Default value `port`: 162. Choices `security`: `noauth`, `auth`, `priv`. Default value `security`: `noauth`. Choices `version`: `v1`, `v2c`, `v3`. Default value `version`: `v2c`. Choices `mgmt_epg`: `inb`, `oob`."
+  description = "List of destinations. Allowed values `port`: 0-65535. Default value `port`: 162. Choices `security`: `noauth`, `auth`, `priv`. Default value `security`: `noauth`. Choices `version`: `v1`, `v2c`, `v3`. Default value `version`: `v2c`. Choices `mgmt_epg_type`: `inb`, `oob`. Default value `mgmt_epg_type`: `inb`."
   type = list(object({
     hostname_ip   = string
     port          = optional(number)
     community     = string
     security      = optional(string)
     version       = optional(string)
-    mgmt_epg      = optional(string)
+    mgmt_epg_type = optional(string)
     mgmt_epg_name = optional(string)
   }))
   default = []
@@ -69,9 +69,9 @@ variable "destinations" {
 
   validation {
     condition = alltrue([
-      for d in var.destinations : d.mgmt_epg == null || try(contains(["inb", "oob"], d.mgmt_epg), false)
+      for d in var.destinations : d.mgmt_epg_type == null || try(contains(["inb", "oob"], d.mgmt_epg_type), false)
     ])
-    error_message = "`mgmt_epg`: Allowed values are `inb` or `oob`."
+    error_message = "`mgmt_epg_type`: Allowed values are `inb` or `oob`."
   }
 
   validation {

@@ -1,9 +1,9 @@
 <!-- BEGIN_TF_DOCS -->
-[![Tests](https://github.com/netascode/terraform-aci-snmp-trap/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-snmp-trap/actions/workflows/test.yml)
+[![Tests](https://github.com/netascode/terraform-aci-snmp-trap-policy/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-snmp-trap-policy/actions/workflows/test.yml)
 
-# Terraform ACI SNMP Trap Module
+# Terraform ACI SNMP Trap Policy Module
 
-Manages ACI SNMP Trap
+Manages ACI SNMP Trap Policy
 
 Location in GUI:
 `Admin` » `External Data Collectors` » `Monitoring Destinations` » `SNMP`
@@ -11,9 +11,9 @@ Location in GUI:
 ## Examples
 
 ```hcl
-module "aci_snmp_trap" {
-  source  = "netascode/snmp-trap/aci"
-  version = ">= 0.0.1"
+module "aci_snmp_trap_policy" {
+  source  = "netascode/snmp-trap-policy/aci"
+  version = ">= 0.0.2"
 
   name        = "TRAP1"
   description = "My Description"
@@ -23,7 +23,7 @@ module "aci_snmp_trap" {
     community     = "COM1"
     security      = "priv"
     version       = "v3"
-    mgmt_epg      = "oob"
+    mgmt_epg_type = "oob"
     mgmt_epg_name = "OOB1"
   }]
 }
@@ -49,7 +49,7 @@ module "aci_snmp_trap" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | SNMP trap policy name. | `string` | n/a | yes |
 | <a name="input_description"></a> [description](#input\_description) | Description. | `string` | `""` | no |
-| <a name="input_destinations"></a> [destinations](#input\_destinations) | List of destinations. Allowed values `port`: 0-65535. Default value `port`: 162. Choices `security`: `noauth`, `auth`, `priv`. Default value `security`: `noauth`. Choices `version`: `v1`, `v2c`, `v3`. Default value `version`: `v2c`. Choices `mgmt_epg`: `inb`, `oob`. | <pre>list(object({<br>    hostname_ip   = string<br>    port          = optional(number)<br>    community     = string<br>    security      = optional(string)<br>    version       = optional(string)<br>    mgmt_epg      = optional(string)<br>    mgmt_epg_name = optional(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_destinations"></a> [destinations](#input\_destinations) | List of destinations. Allowed values `port`: 0-65535. Default value `port`: 162. Choices `security`: `noauth`, `auth`, `priv`. Default value `security`: `noauth`. Choices `version`: `v1`, `v2c`, `v3`. Default value `version`: `v2c`. Choices `mgmt_epg_type`: `inb`, `oob`. Default value `mgmt_epg_type`: `inb`. | <pre>list(object({<br>    hostname_ip   = string<br>    port          = optional(number)<br>    community     = string<br>    security      = optional(string)<br>    version       = optional(string)<br>    mgmt_epg_type = optional(string)<br>    mgmt_epg_name = optional(string)<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
