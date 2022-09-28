@@ -9,14 +9,14 @@ resource "aci_rest_managed" "snmpGroup" {
 
 resource "aci_rest_managed" "snmpTrapDest" {
   for_each   = { for dest in var.destinations : dest.hostname_ip => dest }
-  dn         = "${aci_rest_managed.snmpGroup.dn}/trapdest-${each.value.hostname_ip}-port-${each.value.port != null ? each.value.port : 162}"
+  dn         = "${aci_rest_managed.snmpGroup.dn}/trapdest-${each.value.hostname_ip}-port-${each.value.port}"
   class_name = "snmpTrapDest"
   content = {
     host     = each.value.hostname_ip
-    port     = each.value.port != null ? each.value.port : 162
+    port     = each.value.port
     secName  = each.value.community
-    v3SecLvl = each.value.security != null ? each.value.security : "noauth"
-    ver      = each.value.version != null ? each.value.version : "v2c"
+    v3SecLvl = each.value.security
+    ver      = each.value.version
   }
 }
 

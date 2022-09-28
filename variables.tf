@@ -23,11 +23,11 @@ variable "destinations" {
   description = "List of destinations. Allowed values `port`: 0-65535. Default value `port`: 162. Choices `security`: `noauth`, `auth`, `priv`. Default value `security`: `noauth`. Choices `version`: `v1`, `v2c`, `v3`. Default value `version`: `v2c`. Choices `mgmt_epg_type`: `inb`, `oob`. Default value `mgmt_epg_type`: `inb`."
   type = list(object({
     hostname_ip   = string
-    port          = optional(number)
+    port          = optional(number, 162)
     community     = string
-    security      = optional(string)
-    version       = optional(string)
-    mgmt_epg_type = optional(string)
+    security      = optional(string, "noauth")
+    version       = optional(string, "v2c")
+    mgmt_epg_type = optional(string, "inb")
     mgmt_epg_name = optional(string)
   }))
   default = []
