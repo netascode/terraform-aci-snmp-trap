@@ -14,7 +14,7 @@ resource "aci_rest_managed" "snmpTrapDest" {
   content = {
     host     = each.value.hostname_ip
     port     = each.value.port
-    secName  = each.value.community
+    secName  = sensitive(each.value.community)
     v3SecLvl = each.value.security
     ver      = each.value.version
   }
